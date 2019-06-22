@@ -1,1 +1,26 @@
+body {
+    margin: 10px;
+}
+.grid-container {
+    display: grid;
+    
+}
+.item1 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-left: 200px;
+    
 
+
+}
+.item2{
+    width: 65%;
+    max-height: 150px;
+    margin-left: 200px;
+    margin-top: -200px;
+}
+
+.item3 {
+    margin-top: -50px;
+}

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
 import Home from '../Home/Home';
-import { HashRouter as Router, Route, Link } from 'react-router-dom';
+import Details from '../Details/Details';
+import Edit from '../Edit/Edit';
+import { HashRouter as Router, Route, } from 'react-router-dom';
 
 
 class App extends Component {
@@ -11,13 +14,18 @@ class App extends Component {
       <Router>
 
       <div className="App">
-        <p>Empty Page</p>
-        <Link to='/' className="link">Home</Link>
+
         <Route path="/" exact component={Home}/>
+        <Route path='/details' component={Details}/>
+        <Route path='/edit' component={Edit}/>
       </div>
       </Router>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (reduxState) => ({
+  reduxState
+})
+
+export default connect(mapStateToProps)(App);
