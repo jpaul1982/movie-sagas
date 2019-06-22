@@ -26,15 +26,19 @@ function* movieDetail(action) {
     try {
         // const detailResponse = yield axios.get(`/api/movies/details/${action.payload}`);
         const genreResponse = yield axios.get(`/api/genres/details?id=${action.payload.id}`);
-        // yield put ({type: 'MOVIE_DETAIL', payload: detailResponse.data})
+        yield put ({type: 'SET_TAGS', payload: genreResponse.data})
+        console.log(genreResponse.data);
+        
     } catch (error) {
         console.log('Error fetching details', error);
     }
 }
 
 function* updateMovie(action) {
+    console.log(action.payload);
+    
     try{
-        const updateResponse = yield axios.put(`/api/movies/${action.payload}`);
+        yield axios.put(`/api/movies/`, action.payload);
         yield put ({type:'SET_MOVIES'})
     } catch (error) {
         console.log('Error updating movie', error);
@@ -60,8 +64,6 @@ const movies = (state = [], action) => {
         case 'SET_MOVIES':
             return action.payload;
         case 'MOVIE_DETAIL':
-            return action.payload;
-        case "EDIT_MOVIE":
             return action.payload;
         default:
             return state;
