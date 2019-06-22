@@ -19,15 +19,22 @@ function* fetchMovies(action) {
         yield put ({ type: 'SET_MOVIES', payload: movieResponse.data });
     } catch (error) {
         console.log('Error fetching movies', error);
+    }
+}
 
+function* movieDetail(action) {
+    try {
+        const detailResponse = yield axios.get('/api/detail');
+        yield put ({type: 'MOVIE_DETAIL'})
     }
 }
 
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery ('FETCH_MOVIES', fetchMovies);
-
 }
+
+
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
@@ -36,6 +43,8 @@ const sagaMiddleware = createSagaMiddleware();
 const movies = (state = [], action) => {
     switch (action.type) {
         case 'SET_MOVIES':
+            return action.payload;
+        case 'MOVIE_DETAIL':
             return action.payload;
         default:
             return state;

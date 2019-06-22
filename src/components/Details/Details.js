@@ -17,12 +17,16 @@ handleEditClick = () => {
             <div>
                 <button onClick={this.handleBackClick}>Back to List</button>
                 <button onClick={this.handleEditClick}>Edit</button>
+
                 {/* {this.props.reduxState.movies.map( movie => {
-                    return  <span key ={movie.id}> </span>
-                })} */}
+                    return  <span key ={movie.id}> 
+                    {movie.title} */}
+                   
+                    {/* </span> */}
+                {/* })} */}
                 
                
-                <pre>{JSON.stringify(this.props.reduxState.movies, null, 2)}</pre>
+                {/* <pre>{JSON.stringify(this.props.reduxState.movies, null, 2)}</pre> */}
             
             </div>
 

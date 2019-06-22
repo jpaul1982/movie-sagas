@@ -7,8 +7,8 @@ class MovieList extends Component {
 
     handleClick = () => {
         console.log(this.props.history);
-        console.log(this.props.movie.id);
-        
+        console.log(this.props.movie);
+        this.props.dispatch({type:'MOVIE_DETAIL', payload:this.props.movie});
         this.props.history.push('/details');
 
     }
