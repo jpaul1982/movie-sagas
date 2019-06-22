@@ -24,14 +24,29 @@ function* fetchMovies(action) {
 
 function* movieDetail(action) {
     try {
-        const detailResponse = yield axios.get('/api/detail');
-        yield put ({type: 'MOVIE_DETAIL'})
+        // const detailResponse = yield axios.get(`/api/movies/details/${action.payload}`);
+        const genreResponse = yield axios.get(`/api/genres/details?id=${action.payload.id}`);
+        // yield put ({type: 'MOVIE_DETAIL', payload: detailResponse.data})
+    } catch (error) {
+        console.log('Error fetching details', error);
+    }
+}
+
+function* updateMovie(action) {
+    try{
+        const updateResponse = yield axios.put(`/api/movies/${action.payload}`);
+        yield put ({type:'SET_MOVIES'})
+    } catch (error) {
+        console.log('Error updating movie', error);
+        
     }
 }
 
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery ('FETCH_MOVIES', fetchMovies);
+    yield takeEvery ('MOVIE_DETAIL', movieDetail);
+    yield takeEvery ('EDIT_MOVIE', updateMovie);
 }
 
 
@@ -46,8 +61,11 @@ const movies = (state = [], action) => {
             return action.payload;
         case 'MOVIE_DETAIL':
             return action.payload;
+        case "EDIT_MOVIE":
+            return action.payload;
         default:
             return state;
+        
     }
 }
 

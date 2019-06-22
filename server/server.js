@@ -10,6 +10,10 @@ app.use(express.static('build'));
 
 /** ---------- ROUTES ---------- **/
 app.use('/api/movies', movieRouter);
+app.get('/api/genres/details', (req, res) => {
+    console.log(req.query);
+    
+})
 
 /** ---------- START SERVER ---------- **/
 app.listen(port, function () {
