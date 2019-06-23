@@ -12,27 +12,10 @@ router.get('/', (req, res) => {
         });
 });
 
-// router.get('/api/genres/details', (req, res) => {
-//     console.log(req.query);
-//     const queryText = `SELECT 
-//     "movies"."title", "genres"."name"
-//      FROM "movies"
-//      JOIN "movies_genres"
-//      ON "movies_genres"."movies_id"="movies"."id"
-//      JOIN "genres"
-//      ON "genres"."id"="movies_genres"."genres_id"
-//      WHERE "movies_genres"."movies_id"=$1`;
-//      pool.query(queryText, req.query.id)
-//      .then((result) => { res.send(result.rows); })
-//     .catch((err) => {
-//         console.log('Error completing SELECT genre query', err);
-//         res.sendStatus(500);
-//     });
-// });
+
 
 router.put('/', (req, res) => {
     console.log("route hit", req.body);
-    
     const queryText = `UPDATE "movies" SET "title"= $2, "description"= $3 WHERE "id"=$1`;
     const queryValues = [req.body.id, req.body.title, req.body.description];
     pool.query(queryText, queryValues)
@@ -45,4 +28,38 @@ router.put('/', (req, res) => {
         });
 });
 
+router.get('/genre', (req, res) => {
+    console.log("route hit at 12thirty", req.query);
+    const queryText = `SELECT  
+    "genres"."name", "movies"."title"
+     FROM "movies"
+     JOIN "movies_genres"
+     ON "movies_genres"."movies_id"="movies"."id"
+     JOIN "genres"
+     ON "genres"."id"="movies_genres"."genres_id"
+     WHERE "movies_genres"."movies_id"=$1`;
+     pool.query(queryText, [req.query.id])
+     .then((result) => { res.send(result.rows); })
+    .catch((err) => {
+        console.log('Error completing SELECT genre query', err);
+        res.sendStatus(500);
+    });
+});
+
+// router.get('/genre', (req, res) => {
+//     console.log("route hit wow", req.body);
+//     const queryText = `SELECT  
+//     "name" 
+//      FROM "genres"`;
+     
+//      pool.query(queryText)
+//      .then((result) => { res.send(result.rows); })
+//     .catch((err) => {
+//         console.log('Error completing SELECT genre query', err);
+//         res.sendStatus(500);
+//     });
+// });
+
+
 module.exports = router;
+

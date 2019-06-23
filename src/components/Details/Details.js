@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 
 class Details extends Component {
 
-handleBackClick = () => {
-    this.props.history.push('/');
-}
-handleEditClick = () => {
-    this.props.history.push('/edit');
-}
+    handleBackClick = () => {
+        this.props.history.push('/');
+    }
+    handleEditClick = () => {
+        this.props.history.push('/edit');
+    }
 
     render() {
         return (
@@ -17,21 +17,25 @@ handleEditClick = () => {
             <div>
                 <button onClick={this.handleBackClick}>Back to List</button>
                 <button onClick={this.handleEditClick}>Edit</button>
-
-                {/* {this.props.reduxState.movies.map( movie => {
-                    return  <span key ={movie.id}>{movie.title}</span> */}
-                {this.props.reduxState.movies.title}
-                {this.props.reduxState.genres.name}
-                {this.props.reduxState.movies.description}
-
-                   
-             
-                
-                
-               
-                {/* <pre>{JSON.stringify(this.props.reduxState.movies, null, 2)}</pre> */}
-            
+                <br />
+                <div className="grid-container">
+                    <div className='item1'>{this.props.reduxState.movie.title}</div>
+                    <div>{this.props.reduxState.genres.name}</div>
+                    <img className="item3" value={this.props.reduxState.movie.id} alt="movie-poster" onClick={this.handleClick} src={this.props.reduxState.movie.poster} />
+                    <div className="item2">{this.props.reduxState.movie.description}</div>
+                </div>
+                <pre>{JSON.stringify(this.props.reduxState.genres, null, 2)}</pre>
             </div>
+
+
+
+
+
+
+
+
+
+
 
         )
     }

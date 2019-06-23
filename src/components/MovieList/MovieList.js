@@ -17,7 +17,7 @@ class MovieList extends Component {
             <div>
                 <div className="grid-container">
                 <div className='item1'>{this.props.movie.title}</div>
-                <img className="item3" value = {this.props.movie.id} alt = "movie-poster" onClick={this.handleClick} src = {this.props.movie.poster}/>
+                <img className="item3" alt = "movie-poster" onClick={this.handleClick} src = {this.props.movie.poster}/>
                 <div className="item2">{this.props.movie.description}</div>
                 </div>
                 

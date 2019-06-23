@@ -24,11 +24,10 @@ function* fetchMovies(action) {
 
 function* movieDetail(action) {
     try {
-        // const detailResponse = yield axios.get(`/api/movies/details/${action.payload}`);
-        const genreResponse = yield axios.get(`/api/genres/details?id=${action.payload.id}`);
-        yield put ({type: 'SET_TAGS', payload: genreResponse.data})
-        console.log(genreResponse.data);
-        
+        const detailResponse = yield axios.get(`/api/movies/genre?id=${action.payload.id}`);
+        // const genreResponse = yield axios.get(`/api/genres/details?id=${action.payload.id}`);
+        yield put ({type: 'SET_TAGS', payload: detailResponse.data})
+        console.log(detailResponse.data);
     } catch (error) {
         console.log('Error fetching details', error);
     }
@@ -37,9 +36,10 @@ function* movieDetail(action) {
 function* updateMovie(action) {
     console.log(action.payload);
     
-    try{
+    try {
         yield axios.put(`/api/movies/`, action.payload);
-        yield put ({type:'SET_MOVIES'})
+        yield put ({type:'SET_MOVIES'});
+        yield put ({type:`FETCH_MOVIES`});
     } catch (error) {
         console.log('Error updating movie', error);
         
@@ -63,11 +63,18 @@ const movies = (state = [], action) => {
     switch (action.type) {
         case 'SET_MOVIES':
             return action.payload;
+       default:
+            return state;
+
+        
+    }
+}
+const movie = (state = {}, action) => {
+    switch (action.type) {
         case 'MOVIE_DETAIL':
             return action.payload;
-        default:
-            return state;
-        
+            default:
+                return state;
     }
 }
 
@@ -86,6 +93,7 @@ const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
+        movie,
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

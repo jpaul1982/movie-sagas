@@ -9,17 +9,19 @@ class Edit extends Component {
     }
 
     handleClick = () => {
-        console.log(this.state)
-        this.props.dispatch({type: `EDIT_MOVIE`, payload: {...this.state,id:this.props.reduxState.movies.id}})
+        console.log(this.state);
+        this.props.dispatch({type: `EDIT_MOVIE`, payload: {...this.state, id:this.props.reduxState.movies.id}});
+        // this.props.reduxState.history.push('/');
+    
     }
-    handletitleChange = (event) => {
+    handleTitleChange = (event) => {
         console.log(this.state.title);
         this.setState({
             title: event.target.value
         })
         
     }
-    handledescriptionChange = (event) => {
+    handleDescriptionChange = (event) => {
         console.log(this.state.description);
         this.setState({
             description: event.target.value
@@ -28,13 +30,21 @@ class Edit extends Component {
     }
 
     
+
+    
     render() {
         return (
             <div>
-            <input onChange={this.handletitleChange} value={this.state.title} placeholder='movie title'></input><br/>
-            <textarea onChange={this.handledescriptionChange} value={this.state.description} placeholder='description'></textarea>
+            <input onChange={this.handleTitleChange} value={this.state.title} placeholder='movie title'></input><br/>
+            <textarea onChange={this.handleDescriptionChange} value={this.state.description} placeholder='description'></textarea>
             <input onClick={this.handleClick} type="submit"></input>
-            <pre>{JSON.stringify(this.props.reduxState.movies, null, 2)}</pre>
+            {/* <pre>{JSON.stringify(this.props.reduxState.movies, null, 2)}</pre> */}
+
+            <div className="grid-container">
+                <div className='item1'>{this.props.reduxState.movie.title}</div>
+                <img className="item3" value = {this.props.reduxState.movie.id} alt = "movie-poster" onClick={this.handleClick} src = {this.props.reduxState.movie.poster}/>
+                <div className="item2">{this.props.reduxState.movie.description}</div>
+                </div>
             </div>
         )
     }
