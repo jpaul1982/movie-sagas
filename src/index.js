@@ -16,7 +16,7 @@ import axios from 'axios';
 function* fetchMovies(action) {
     try {
         const movieResponse = yield axios.get('/api/movies');
-        yield put ({ type: 'SET_MOVIES', payload: movieResponse.data });
+        yield put({ type: 'SET_MOVIES', payload: movieResponse.data });
     } catch (error) {
         console.log('Error fetching movies', error);
     }
@@ -26,7 +26,7 @@ function* movieDetail(action) {
     try {
         const detailResponse = yield axios.get(`/api/movies/genre?id=${action.payload.id}`);
         // const genreResponse = yield axios.get(`/api/genres/details?id=${action.payload.id}`);
-        yield put ({type: 'SET_TAGS', payload: detailResponse.data})
+        yield put({ type: 'SET_TAGS', payload: detailResponse.data })
         console.log(detailResponse.data);
     } catch (error) {
         console.log('Error fetching details', error);
@@ -35,22 +35,21 @@ function* movieDetail(action) {
 
 function* updateMovie(action) {
     console.log(action.payload);
-    
     try {
         yield axios.put(`/api/movies/`, action.payload);
-        yield put ({type:'SET_MOVIES'});
-        yield put ({type:`FETCH_MOVIES`});
+        yield put({type:`SET_MOVIES`,payload: yield axios.get('/api/movies') });
+        this.props.reduxState.history.push('/');
     } catch (error) {
         console.log('Error updating movie', error);
-        
+
     }
 }
 
 // Create the rootSaga generator function
 function* rootSaga() {
-    yield takeEvery ('FETCH_MOVIES', fetchMovies);
-    yield takeEvery ('MOVIE_DETAIL', movieDetail);
-    yield takeEvery ('EDIT_MOVIE', updateMovie);
+    yield takeEvery('FETCH_MOVIES', fetchMovies);
+    yield takeEvery('MOVIE_DETAIL', movieDetail);
+    yield takeEvery('EDIT_MOVIE', updateMovie);
 }
 
 
@@ -63,18 +62,18 @@ const movies = (state = [], action) => {
     switch (action.type) {
         case 'SET_MOVIES':
             return action.payload;
-       default:
+        default:
             return state;
 
-        
+
     }
 }
 const movie = (state = {}, action) => {
     switch (action.type) {
         case 'MOVIE_DETAIL':
             return action.payload;
-            default:
-                return state;
+        default:
+            return state;
     }
 }
 

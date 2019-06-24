@@ -9,9 +9,10 @@ class Edit extends Component {
     }
 
     handleClick = () => {
-        console.log(this.state);
-        this.props.dispatch({type: `EDIT_MOVIE`, payload: {...this.state, id:this.props.reduxState.movies.id}});
-        // this.props.reduxState.history.push('/');
+        console.log(this.state, this.props.reduxState.movies.id);
+        this.props.dispatch({type: `EDIT_MOVIE`, payload: {...this.state, id:this.props.reduxState.movie.id}});
+
+       this.props.history.push('/');
     
     }
     handleTitleChange = (event) => {
@@ -29,6 +30,12 @@ class Edit extends Component {
         
     }
 
+    handleCancelClick = () => {
+        this.props.history.push('/details');
+    }
+
+  
+
     
 
     
@@ -38,7 +45,8 @@ class Edit extends Component {
             <input onChange={this.handleTitleChange} value={this.state.title} placeholder='movie title'></input><br/>
             <textarea onChange={this.handleDescriptionChange} value={this.state.description} placeholder='description'></textarea>
             <input onClick={this.handleClick} type="submit"></input>
-            {/* <pre>{JSON.stringify(this.props.reduxState.movies, null, 2)}</pre> */}
+            <button onClick={this.handleCancelClick}>Cancel</button>
+    
 
             <div className="grid-container">
                 <div className='item1'>{this.props.reduxState.movie.title}</div>
