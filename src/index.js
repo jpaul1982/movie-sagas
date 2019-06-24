@@ -37,8 +37,8 @@ function* updateMovie(action) {
     console.log(action.payload);
     try {
         yield axios.put(`/api/movies/`, action.payload);
-        yield put({type:`SET_MOVIES`,payload: yield axios.get('/api/movies') });
-        this.props.reduxState.history.push('/');
+        yield put({type:`FETCH_MOVIES`});
+        // this.props.reduxState.history.push('/');
     } catch (error) {
         console.log('Error updating movie', error);
 

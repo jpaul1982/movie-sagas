@@ -46,19 +46,7 @@ router.get('/genre', (req, res) => {
     });
 });
 
-// router.get('/genre', (req, res) => {
-//     console.log("route hit wow", req.body);
-//     const queryText = `SELECT  
-//     "name" 
-//      FROM "genres"`;
-     
-//      pool.query(queryText)
-//      .then((result) => { res.send(result.rows); })
-//     .catch((err) => {
-//         console.log('Error completing SELECT genre query', err);
-//         res.sendStatus(500);
-//     });
-// });
+
 
 
 module.exports = router;
